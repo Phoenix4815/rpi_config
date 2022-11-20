@@ -1,0 +1,72 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: lorenz
+      ssh_authorized_keys:
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCpAw1DwegRTNQ9HBp9EeTTAqXh5mzCIgjVsajozV+aAnCuoM6wxiBdFbmVvWyR5nxzpChbw8ZtxPSSmWX9uuxQY6yCTvnU6UAZ/gEtQUHFVvTi+S8JIBWP/5uQKJ4sn3Yz0bP3omJTY7Bk9i12s+eum65JScoyu/bvyZpLbavHIZh4LbgZs0D15wMksM1u7LleM9zZHPOpmPcmYVXT3nEGHjTRi9kju4dfVX3egn6xHNRKs8o9zMQiGE34p4bd3aKgJ4d25PTVU/0BNBw0hpn3grkbrt+UeY5yo6g+T3mKNlQ0LndulGWhi6aaeRNRITp05IlHVdNDiPi2mX2+w9UkTpjLXGFCS2NVJUJ+f5BFbA3jFIOQccc285WVSJA/6GQqFWQ6iXLtyUkcnjNJ8nLoWEs33KVFvuZGjOe47VKwh1sg+D1Yl10eJ45MsH6OPkLevrniAIpxa9nwyl7U6EopNC/nqMO5kZRhE+pFy+Y8RX8M+UY0ktQkMbowX69IFJ1z/4cz+5003nbqTcUuOHHAwnNDS3LSyp97/4NZiCaR3q3jHKliRMmzn8GIFbosKj4i5KhEak7l11rsE/PoYiwSLg+7MSp30bXkXfq5dLxcI4NOrjin3y7HiZHmg7Qq21uQ0ixtKiI97/RRf7+BIKefPcPMFZxdgFkHhr2SXcJ05w== lorenz@lorenz-N5
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIgFUvlaxbp8S5TMe57eIcHqnXcXQHlnwOumjDs2plnE lorenz@lorenz-N5
+    - name: root
+      ssh_authorized_keys:
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCpAw1DwegRTNQ9HBp9EeTTAqXh5mzCIgjVsajozV+aAnCuoM6wxiBdFbmVvWyR5nxzpChbw8ZtxPSSmWX9uuxQY6yCTvnU6UAZ/gEtQUHFVvTi+S8JIBWP/5uQKJ4sn3Yz0bP3omJTY7Bk9i12s+eum65JScoyu/bvyZpLbavHIZh4LbgZs0D15wMksM1u7LleM9zZHPOpmPcmYVXT3nEGHjTRi9kju4dfVX3egn6xHNRKs8o9zMQiGE34p4bd3aKgJ4d25PTVU/0BNBw0hpn3grkbrt+UeY5yo6g+T3mKNlQ0LndulGWhi6aaeRNRITp05IlHVdNDiPi2mX2+w9UkTpjLXGFCS2NVJUJ+f5BFbA3jFIOQccc285WVSJA/6GQqFWQ6iXLtyUkcnjNJ8nLoWEs33KVFvuZGjOe47VKwh1sg+D1Yl10eJ45MsH6OPkLevrniAIpxa9nwyl7U6EopNC/nqMO5kZRhE+pFy+Y8RX8M+UY0ktQkMbowX69IFJ1z/4cz+5003nbqTcUuOHHAwnNDS3LSyp97/4NZiCaR3q3jHKliRMmzn8GIFbosKj4i5KhEak7l11rsE/PoYiwSLg+7MSp30bXkXfq5dLxcI4NOrjin3y7HiZHmg7Qq21uQ0ixtKiI97/RRf7+BIKefPcPMFZxdgFkHhr2SXcJ05w== lorenz@lorenz-N5
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIgFUvlaxbp8S5TMe57eIcHqnXcXQHlnwOumjDs2plnE lorenz@lorenz-N5
+
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: lorenz-rpi
+#    - path: /etc/profile.d/systemd-pager.sh
+#      mode: 0644
+#      contents:
+#        inline: |
+#          # Tell systemd to not use a pager when printing information
+#          export SYSTEMD_PAGER=cat
+#    - path: /etc/sysctl.d/20-silence-audit.conf
+#      mode: 0644
+#      contents:
+#        inline: |
+#          # Raise console message logging level from DEBUG (7) to WARNING (4)
+#          # to hide audit messages from the interactive console
+#          kernel.printk=4
+#
+#systemd:
+#  units:
+#    - name: docker.service
+#      enabled: true
+#    - name: rpm-ostree-install-docker-compose.service
+#      enabled: true
+#      contents: |
+#        [Unit]
+#        Description=Layer docker-compose with rpm-ostree
+#        Wants=network-online.target
+#        After=network-online.target
+#        # We run before `zincati.service` to avoid conflicting rpm-ostree
+#        # transactions.
+#        Before=zincati.service
+#        ConditionPathExists=!/var/lib/%N.stamp
+#
+#        [Service]
+#        Type=oneshot
+#        RemainAfterExit=yes
+#        # `--allow-inactive` ensures that rpm-ostree does not return an error
+#        # if the package is already installed. This is useful if the package is
+#        # added to the root image in a future Fedora CoreOS release as it will
+#        # prevent the service from failing.
+#        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive docker-compose
+#        ExecStart=/bin/touch /var/lib/%N.stamp
+#
+#        [Install]
+#        WantedBy=multi-user.target
+##
+#    - name: serial-getty@ttyS0.service
+#      dropins:
+#      - name: autologin-core.conf
+#        contents: |
+#          [Service]
+#          # Override Execstart in main unit
+#          ExecStart=
+#          # Add new Execstart with `-` prefix to ignore failure`
+#          ExecStart=-/usr/sbin/agetty --autologin core --noclear %I $TERM
+#
